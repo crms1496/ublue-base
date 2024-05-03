@@ -4,6 +4,9 @@ set -ouex pipefail
 
 RELEASE="$(rpm -E %fedora)"
 
+### Add additional repositories
+
+curl -Lo /etc/yum.repos.d/tailscale.repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 
 ### Install packages
 
@@ -12,12 +15,8 @@ RELEASE="$(rpm -E %fedora)"
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# this installs a package from fedora repos
-rpm-ostree install screen
 
-# this would install a package from rpmfusion
-# rpm-ostree install vlc
+rpm-ostree install clevis-dracut clevis-luks clevis-udisks2 clevis-systemd \
+    byobu duperemove fish mosh podman-compose tailscale \
+    cockpit cockpit-machines cockpit-networkmanager cockpit-ostree cockpit-pcp cockpit-podman cockpit-selinux cockpit-storaged cockpit-systemd
 
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket

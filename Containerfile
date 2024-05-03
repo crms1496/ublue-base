@@ -15,7 +15,7 @@
 # - "base"
 #
 #  "aurora", "bazzite", "bluefin" or "ucore" may also be used but have different suffixes.
-ARG SOURCE_IMAGE="silverblue"
+ARG SOURCE_IMAGE="base"
 
 ## SOURCE_SUFFIX arg should include a hyphen and the appropriate suffix name
 # These examples all work for silverblue/kinoite/sericea/onyx/lazurite/vauxite/base
@@ -49,6 +49,9 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY build.sh /tmp/build.sh
+
+### Use this to add additional system files like Systemd services.
+COPY system_files/usr /usr
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
